@@ -1,15 +1,22 @@
 package it.rcs.om;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class RadiusCellOM extends AbstractCellOM {
+
     private double radius;
 
+    public RadiusCellOM(String name, PositionOM position, double radius) {
+        super(name, position);
+        this.radius = radius;
+    }
+
     @Override
-    public double calculateStrength(double latitude, double longitude) {
-        return 0;
+    public double calculateStrength(PositionOM pointPosition) {
+        double distance = calculateDistance(pointPosition);
+        return Math.max(0, 100 - (distance / radius * 100));
     }
 }
