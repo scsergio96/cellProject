@@ -1,15 +1,21 @@
 package it.rcs.om;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 public class PowerCellOM extends AbstractCellOM {
-    private double powerValue;
+    private final double powerValue;
+
+    public PowerCellOM(String name, PositionOM position, double powerValue) {
+        super(name, position);
+        this.powerValue = powerValue;
+    }
 
     @Override
-    public double calculateStrength(double latitude, double longitude) {
-        return 0;
+    public double calculateStrength(PositionOM pointPosition) {
+        double distance = calculateDistance(pointPosition);
+        return Math.max(0, 1 / Math.pow(distance, powerValue));
     }
 }
