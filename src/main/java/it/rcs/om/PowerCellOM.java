@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PowerCellOM extends AbstractCellOM {
+
     private final double powerValue;
 
     public PowerCellOM(String name, PositionOM position, double powerValue) {
@@ -14,8 +15,8 @@ public class PowerCellOM extends AbstractCellOM {
     }
 
     @Override
-    public double calculateStrength(PositionOM pointPosition) {
-        double distance = calculateDistance(pointPosition);
+    public double getStrength(PositionOM pointPosition) {
+        double distance = getDistance(pointPosition);
         return Math.max(0, 1 / Math.pow(distance, powerValue));
     }
 }
