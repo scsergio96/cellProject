@@ -1,4 +1,4 @@
-package it.rcs.om;
+package it.rcs.om.cell;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ public class PowerCellOM extends AbstractCellOM {
 
     @Override
     public double getStrength(PositionOM pointPosition) {
-        double distance = getDistance(pointPosition);
-        return Math.max(0, 1 / Math.pow(distance, powerValue));
+        double distance = getDistance(pointPosition, this.getPosition());
+        return Math.ceil(Math.max(0, 1 / Math.pow(distance, powerValue)));
     }
 }

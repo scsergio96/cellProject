@@ -1,5 +1,6 @@
-package it.rcs.om;
+package it.rcs.om.event;
 
+import it.rcs.om.cell.AbstractCellOM;
 import lombok.*;
 
 import java.time.ZonedDateTime;

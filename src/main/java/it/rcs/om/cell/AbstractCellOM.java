@@ -1,8 +1,10 @@
-package it.rcs.om;
+package it.rcs.om.cell;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class AbstractCellOM implements ICellOM {
     private final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
     private String name;
@@ -13,15 +15,15 @@ public abstract class AbstractCellOM implements ICellOM {
         this.position = position;
     }
 
-    public double getDistance(PositionOM pointPosition) {
+    @Override
+    public double getDistance(PositionOM startingPoint, PositionOM endingPoint) {
+        double dLat = Math.toRadians(endingPoint.getLatitude() - startingPoint.getLatitude());
+        double dLong = Math.toRadians(endingPoint.getLongitude() - startingPoint.getLongitude());
 
-        double dLat = Math.toRadians(pointPosition.getLatitude() - position.getLatitude());
-        double dLong = Math.toRadians(pointPosition.getLongitude() - position.getLongitude());
+        double startLat = Math.toRadians(startingPoint.getLatitude());
+        double endLat = Math.toRadians(endingPoint.getLatitude());
 
-        position.setLatitude(Math.toRadians(position.getLatitude()));
-        pointPosition.setLatitude(Math.toRadians(pointPosition.getLatitude()));
-
-        double a = haversine(dLat) + Math.cos(position.getLatitude()) * Math.cos(pointPosition.getLatitude()) * haversine(dLong);
+        double a = haversine(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversine(dLong);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         return AVERAGE_RADIUS_OF_EARTH_KM * c;
