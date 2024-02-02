@@ -3,7 +3,7 @@ package it.rcs.om;
 import lombok.Data;
 
 @Data
-public abstract class AbstractCellOM {
+public abstract class AbstractCellOM implements ICellOM {
     private final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
     private String name;
     private PositionOM position;
@@ -13,9 +13,7 @@ public abstract class AbstractCellOM {
         this.position = position;
     }
 
-    public abstract double calculateStrength(PositionOM position);
-
-    public double calculateDistance(PositionOM pointPosition) {
+    public double getDistance(PositionOM pointPosition) {
 
         double dLat = Math.toRadians(pointPosition.getLatitude() - position.getLatitude());
         double dLong = Math.toRadians(pointPosition.getLongitude() - position.getLongitude());
@@ -31,5 +29,12 @@ public abstract class AbstractCellOM {
 
     private double haversine(double val) {
         return Math.pow(Math.sin(val / 2), 2);
+    }
+
+    @Override
+    public String toString() {
+        return '{' +
+                "name='" + name + '\'' +
+                '}';
     }
 }
