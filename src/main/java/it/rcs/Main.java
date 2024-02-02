@@ -1,6 +1,11 @@
 package it.rcs;
 
-import it.rcs.om.*;
+import it.rcs.om.cell.AbstractCellOM;
+import it.rcs.om.cell.PositionOM;
+import it.rcs.om.cell.PowerCellOM;
+import it.rcs.om.cell.RadiusCellOM;
+import it.rcs.om.event.EventOM;
+import it.rcs.om.event.EventTypeOM;
 
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -33,7 +38,7 @@ public class Main {
         Map<AbstractCellOM, Long> cellCountMap =
                 events.stream().map(EventOM::getCellOM).collect(Collectors.groupingBy(abstractCellOM -> abstractCellOM, Collectors.counting()));
         cellCountMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .forEach(abstractCellOMLongEntry -> System.out.println("CELL: " + abstractCellOMLongEntry.getKey() + " HAS " + abstractCellOMLongEntry.getValue() + " EVENTS"));
+                .forEach(abstractCellOMLongEntry -> System.out.printf("CELL: %s with position %s has %s events\n", abstractCellOMLongEntry.getKey(), abstractCellOMLongEntry.getKey().getPosition(), abstractCellOMLongEntry.getValue()));
     }
 
     private static void decreasingPowerOrderedCell() {
@@ -45,7 +50,7 @@ public class Main {
         List<AbstractCellOM> sortedCells = cellList.stream()
                 .sorted(Comparator.comparingDouble(value -> value.getStrength(position2))).collect(Collectors.toList());
         Collections.reverse(sortedCells);
-        sortedCells.forEach(abstractCellOM -> System.out.printf("CELL: %s has strength %s from position %s\n", abstractCellOM, abstractCellOM.getStrength(position2), position2));
+        sortedCells.forEach(abstractCellOM -> System.out.printf("CELL: %s with position %s has strength %s from position %s\n", abstractCellOM, abstractCellOM.getPosition(), abstractCellOM.getStrength(position2), position2));
     }
 
     private static void getStrongerThanRequiredCell() {
@@ -56,7 +61,7 @@ public class Main {
                 Arrays.asList(new PowerCellOM("powerCell", position1, 156),
                         new RadiusCellOM("radiusCell", position2, 10));
         cellList.stream().filter(abstractCellOM -> abstractCellOM.getStrength(position3) > REQUIRED_STRENGTH)
-                .forEach(abstractCellOM -> System.out.printf("CELL: %s with position %s has an higher strength than %s", abstractCellOM, abstractCellOM.getPosition(), REQUIRED_STRENGTH));
+                .forEach(abstractCellOM -> System.out.printf("CELL: %s with position %s has an higher strength than %s from position %s\n", abstractCellOM, abstractCellOM.getPosition(), REQUIRED_STRENGTH, position3));
     }
 
 }

@@ -1,4 +1,4 @@
-package it.rcs.om;
+package it.rcs.om.event;
 
 public enum EventTypeOM {
     CONNECTED,
