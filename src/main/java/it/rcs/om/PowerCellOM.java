@@ -14,8 +14,8 @@ public class PowerCellOM extends AbstractCellOM {
     }
 
     @Override
-    public double calculateStrength(PositionOM pointPosition) {
-        double distance = calculateDistance(pointPosition);
+    public double getStrength(PositionOM pointPosition) {
+        double distance = getDistance(pointPosition);
         return Math.max(0, 1 / Math.pow(distance, powerValue));
     }
 }

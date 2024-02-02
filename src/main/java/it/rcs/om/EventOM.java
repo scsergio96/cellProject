@@ -1,12 +1,17 @@
 package it.rcs.om;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class EventOM {
+    @NonNull
     private EventTypeOM eventTypeOM;
+    @NonNull
     private AbstractCellOM cellOM;
+    @NonNull
     private ZonedDateTime timestamp;
 }
