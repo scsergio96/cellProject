@@ -1,13 +1,16 @@
 package it.rcs.om.cell;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
 public abstract class AbstractCellOM implements ICellOM {
     private final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
+    @NonNull
     private String name;
+    @NonNull
     private PositionOM position;
 
     public AbstractCellOM(String name, PositionOM position) {
